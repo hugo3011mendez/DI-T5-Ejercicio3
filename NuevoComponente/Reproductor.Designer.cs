@@ -28,11 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.btnPlayPausa = new System.Windows.Forms.Button();
             this.lblTiempo = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.btnPlayPausa = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // lblTiempo
+            // 
+            this.lblTiempo.AutoSize = true;
+            this.lblTiempo.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTiempo.Location = new System.Drawing.Point(43, 69);
+            this.lblTiempo.Name = "lblTiempo";
+            this.lblTiempo.Size = new System.Drawing.Size(89, 25);
+            this.lblTiempo.TabIndex = 1;
+            this.lblTiempo.Text = "Tiempo";
             // 
             // btnPlayPausa
             // 
@@ -46,21 +54,6 @@
             this.btnPlayPausa.TabIndex = 0;
             this.btnPlayPausa.UseVisualStyleBackColor = false;
             this.btnPlayPausa.Click += new System.EventHandler(this.btnPlayPausa_Click);
-            // 
-            // lblTiempo
-            // 
-            this.lblTiempo.AutoSize = true;
-            this.lblTiempo.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTiempo.Location = new System.Drawing.Point(43, 69);
-            this.lblTiempo.Name = "lblTiempo";
-            this.lblTiempo.Size = new System.Drawing.Size(89, 25);
-            this.lblTiempo.TabIndex = 1;
-            this.lblTiempo.Text = "Tiempo";
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Reproductor
             // 
@@ -79,7 +72,6 @@
         #endregion
 
         private System.Windows.Forms.Button btnPlayPausa;
-        private System.Windows.Forms.Timer timer1;
         public System.Windows.Forms.Label lblTiempo;
     }
 }
