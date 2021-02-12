@@ -42,5 +42,18 @@ namespace Ejercicio3
                 reproductor.minutos = 0;
             }
         }
+
+
+        private void reproductor_PulsaBoton(object sender, EventArgs e)
+        {
+            if (timer1.Enabled)
+            {
+                timer1.Stop();
+            }
+            else
+            {
+                timer1.Start();
+            }
+        }
     }
 }

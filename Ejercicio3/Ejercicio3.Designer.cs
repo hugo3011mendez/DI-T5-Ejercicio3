@@ -46,12 +46,13 @@
             this.reproductor.Size = new System.Drawing.Size(181, 170);
             this.reproductor.TabIndex = 0;
             this.reproductor.DesbordaTiempo += new System.EventHandler(this.reproductor_DesbordaTiempo);
+            this.reproductor.PulsaBoton += new System.EventHandler(this.reproductor_PulsaBoton);
             // 
             // Ejercicio3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(495, 249);
             this.Controls.Add(this.reproductor);
             this.Name = "Ejercicio3";
             this.Text = "Ejercicio3";

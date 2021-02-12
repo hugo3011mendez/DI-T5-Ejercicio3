@@ -24,14 +24,20 @@ namespace NuevoComponente
         }
 
 
-        // Este evento se lanza 
         [Category("Tiempo")]
         [Description("Se lanza cuando segundos supere 59")]
         public event EventHandler DesbordaTiempo;
-        
+
+
+        [Category("Tiempo")]
+        [Description("Se lanza cuando se pulsa el botón de play/pausa")]
+        public event EventHandler PulsaBoton;
+
 
         private void btnPlayPausa_Click(object sender, EventArgs e)
         {
+            PulsaBoton(sender, e);
+
             if (btnPlayPausa.Image == Properties.Resources.Play)
             {
                 btnPlayPausa.Image = Properties.Resources.Pause;
