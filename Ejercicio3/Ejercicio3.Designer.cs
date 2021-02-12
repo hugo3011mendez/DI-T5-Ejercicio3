@@ -40,13 +40,11 @@
             // 
             // reproductor
             // 
-            this.reproductor.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.reproductor.Location = new System.Drawing.Point(61, 48);
+            this.reproductor.BackColor = System.Drawing.Color.Transparent;
+            this.reproductor.Location = new System.Drawing.Point(12, 12);
             this.reproductor.Name = "reproductor";
             this.reproductor.Size = new System.Drawing.Size(181, 170);
             this.reproductor.TabIndex = 0;
-            this.reproductor.DesbordaTiempo += new System.EventHandler(this.reproductor_DesbordaTiempo);
-            this.reproductor.PulsaBoton += new System.EventHandler(this.reproductor_PulsaBoton);
             // 
             // Ejercicio3
             // 
@@ -61,8 +59,7 @@
         }
 
         #endregion
-
-        private NuevoComponente.Reproductor reproductor;
         private System.Windows.Forms.Timer timer1;
+        private NuevoComponente.Reproductor reproductor;
     }
 }

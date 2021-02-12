@@ -14,7 +14,7 @@ namespace NuevoComponente
     public partial class Reproductor : UserControl
     {
         public int minutos = 0, segundos = 0;
-
+        bool estaEnPlay = true;
 
         public Reproductor()
         {
@@ -36,16 +36,19 @@ namespace NuevoComponente
 
         private void btnPlayPausa_Click(object sender, EventArgs e)
         {
-            PulsaBoton(sender, e);
+            PulsaBoton?.Invoke(this, EventArgs.Empty);
 
-            if (btnPlayPausa.Image == Properties.Resources.Play)
+
+            if (estaEnPlay)
             {
-                btnPlayPausa.Image = Properties.Resources.Pause;
+                btnPlayPausa.BackgroundImage = Properties.Resources.Pause;
             }
             else
             {
-                btnPlayPausa.Image = Properties.Resources.Play;
+                btnPlayPausa.BackgroundImage = Properties.Resources.Play;
             }
+
+            estaEnPlay = !estaEnPlay;
         }
     }
 }
