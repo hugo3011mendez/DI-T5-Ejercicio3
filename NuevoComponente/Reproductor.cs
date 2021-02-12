@@ -13,18 +13,12 @@ namespace NuevoComponente
 {
     public partial class Reproductor : UserControl
     {
-        Bitmap imgPlay;
-        Bitmap imgPause;
-
         int minutos = 0, segundos = 0;
 
 
         public Reproductor()
         {
             InitializeComponent();
-
-            imgPlay = new Bitmap(Directory.GetCurrentDirectory() + "\\play.png");
-            imgPause = new Bitmap(Directory.GetCurrentDirectory() + "\\pause.png");
         }
 
 
@@ -55,18 +49,17 @@ namespace NuevoComponente
             lblTiempo.Text = minutos.ToString("D2") + ":" + segundos.ToString("D2");
         }
 
+
         private void btnPlayPausa_Click(object sender, EventArgs e)
         {
-            if (btnPlayPausa.Image == imgPlay)
+            if (btnPlayPausa.Image == Properties.Resources.Play)
             {
-                btnPlayPausa.Image = imgPause;
+                btnPlayPausa.Image = Properties.Resources.Pause;
             }
             else
             {
-                btnPlayPausa.Image = imgPlay;
+                btnPlayPausa.Image = Properties.Resources.Play;
             }
-
-            
         }
     }
 }

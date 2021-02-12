@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Reproductor));
             this.btnPlayPausa = new System.Windows.Forms.Button();
             this.lblTiempo = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -38,7 +37,7 @@
             // btnPlayPausa
             // 
             this.btnPlayPausa.BackColor = System.Drawing.SystemColors.Control;
-            this.btnPlayPausa.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnPlayPausa.BackgroundImage")));
+            this.btnPlayPausa.BackgroundImage = global::NuevoComponente.Properties.Resources.Play;
             this.btnPlayPausa.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnPlayPausa.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPlayPausa.Location = new System.Drawing.Point(58, 109);
