@@ -79,7 +79,7 @@
         #endregion
 
         private System.Windows.Forms.Button btnPlayPausa;
-        private System.Windows.Forms.Label lblTiempo;
         private System.Windows.Forms.Timer timer1;
+        public System.Windows.Forms.Label lblTiempo;
     }
 }

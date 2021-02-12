@@ -13,12 +13,14 @@ namespace NuevoComponente
 {
     public partial class Reproductor : UserControl
     {
-        int minutos = 0, segundos = 0;
+        public int minutos = 0, segundos = 0;
 
 
         public Reproductor()
         {
             InitializeComponent();
+
+            lblTiempo.Text = "";
         }
 
 
