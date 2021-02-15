@@ -33,11 +33,14 @@ namespace NuevoComponente
         [Description("Se lanza cuando se pulsa el botón de play/pausa")]
         public event EventHandler PulsaBoton;
 
-
         private void btnPlayPausa_Click(object sender, EventArgs e)
         {
-            PulsaBoton?.Invoke(this, EventArgs.Empty);
+            //if (PulsaBoton!=null)
+            //{
+            //    PulsaBoton(this, EventArgs.Empty);
+            //}
 
+            PulsaBoton?.Invoke(this, EventArgs.Empty);
 
             if (estaEnPlay)
             {
