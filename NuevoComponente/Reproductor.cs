@@ -29,18 +29,19 @@ namespace NuevoComponente
         public event EventHandler DesbordaTiempo;
 
 
-        [Category("Tiempo")]
+        [Category("Gestión")]
         [Description("Se lanza cuando se pulsa el botón de play/pausa")]
         public event EventHandler PulsaBoton;
 
         private void btnPlayPausa_Click(object sender, EventArgs e)
         {
-            //if (PulsaBoton!=null)
-            //{
-            //    PulsaBoton(this, EventArgs.Empty);
-            //}
+            if (PulsaBoton != null)
+            {
+                Console.WriteLine("Lanzo el evento");
+                PulsaBoton(this, EventArgs.Empty);
+            }
 
-            PulsaBoton?.Invoke(this, EventArgs.Empty);
+            //PulsaBoton?.Invoke(this, EventArgs.Empty);
 
             if (estaEnPlay)
             {
