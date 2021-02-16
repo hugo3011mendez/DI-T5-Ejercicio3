@@ -16,12 +16,6 @@ namespace Ejercicio3
         {
             InitializeComponent();
 
-            lblImagenEscogida.Text = "";
-
-            this.openFileDialog.Title = "Selección de directorio para almacenar datos";
-            this.openFileDialog.InitialDirectory = "G:\\2DAM\\MobileApps\\Dungeons Without Dragons\\Dungeons Without Dragons\\DungeonsWithoutDragons\android\assets";
-            this.openFileDialog.Filter = "imagenes PNG (*.png) |*.png|imagenes JPG (*.jpg) |*.jpg|Todos los archivos (*.*) |*.*";
-            this.openFileDialog.ValidateNames = true;
         }
 
 
@@ -65,12 +59,7 @@ namespace Ejercicio3
 
         private void btnEscogerArchivo_Click(object sender, EventArgs e)
         {
-            this.openFileDialog.ShowDialog();
-        }
-
-        private void openFileDialog_FileOk(object sender, CancelEventArgs e)
-        {
-            lblImagenEscogida.Text = "Imagen Escogida : " + openFileDialog.FileName.Split('\\')[openFileDialog.FileName.Split('\\').Length-1];
+            this.folderBrowserDialog.ShowDialog();
         }
     }
 }
