@@ -55,9 +55,9 @@
             this.btnEscogerArchivo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.btnEscogerArchivo.Location = new System.Drawing.Point(329, 12);
             this.btnEscogerArchivo.Name = "btnEscogerArchivo";
-            this.btnEscogerArchivo.Size = new System.Drawing.Size(70, 44);
+            this.btnEscogerArchivo.Size = new System.Drawing.Size(77, 44);
             this.btnEscogerArchivo.TabIndex = 1;
-            this.btnEscogerArchivo.Text = "Escoger Imagen";
+            this.btnEscogerArchivo.Text = "Escoger Directorio";
             this.btnEscogerArchivo.UseVisualStyleBackColor = true;
             this.btnEscogerArchivo.Click += new System.EventHandler(this.btnEscogerArchivo_Click);
             // 
