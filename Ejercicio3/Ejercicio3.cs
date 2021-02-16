@@ -7,11 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Collections;
 
 namespace Ejercicio3
 {
     public partial class Ejercicio3 : Form
     {
+        List<Image> imagenesSeleccionadas = new List<Image>(); // Creo una colección para guardar las imágenes de la carpeta seleccionada
+        int contadorVisualizacionImagenes = 0; // Creo un contador para gestionar el orden de visualización de las imágenes de la carpeta seleccionada
+
         public Ejercicio3()
         {
             InitializeComponent();
@@ -25,13 +30,24 @@ namespace Ejercicio3
 
             if (reproductor.segundos > 59)
             {
-                reproductor_DesbordaTiempo(sender, e);
+                reproductor_DesbordaTiempo(sender, EventArgs.Empty);
             }
 
             reproductor.lblTiempo.Text = reproductor.minutos.ToString("D2") + ":" + reproductor.segundos.ToString("D2");
+
+            // Cada vez que el timer hace el evento Tick (cada segundo), se cambia la imagen que se visualiza por la siguiente de la carpeta
+            pictureBox.BackgroundImage = imagenesSeleccionadas[contadorVisualizacionImagenes];
+            contadorVisualizacionImagenes++;
+
+            // Si se está mostrando la última imagen en la carpeta, el contador de visualización vuelve a 0 para volver a mostrar la primera imagen
+            if (contadorVisualizacionImagenes > imagenesSeleccionadas.Count - 1)
+            {
+                contadorVisualizacionImagenes = 0;
+            }
         }
 
 
+        // En el evento DesbordaTiempo actualizo los minutos y los segundos cuando éstos llegan a más de 60;
         private void reproductor_DesbordaTiempo(object sender, EventArgs e)
         {
             reproductor.segundos = 0;
@@ -45,8 +61,22 @@ namespace Ejercicio3
         }
 
 
+        // Evento que se lanza cuando se pulsa el botón de reproducir en el reproductor
         private void reproductor_PulsaBoton(object sender, EventArgs e)
         {
+            DirectoryInfo di = new DirectoryInfo(folderBrowserDialog.SelectedPath); // Creo una variable que guarda la info de la carpeta seleccionada en el folderBrowserDialog
+
+            // Recorro los archivos de la carpeta
+            for (int i = 0; i < di.GetFiles().Length; i++)
+            {
+                // Si el archivo tiene una extensión de imagen, se guarda en la colección de imágenes contenidas en la carpeta seleccionada
+                if (di.GetFiles()[i].Name.EndsWith(".png") || di.GetFiles()[i].Name.EndsWith(".jpg"))
+                {
+                    imagenesSeleccionadas.Add(new Bitmap(Image.FromFile(di.GetFiles()[i].FullName)));
+                }
+            }            
+
+            // Compruebo si el timer está en marcha o en pausa, para pararlo o iniciarlo según corresponda
             if (timer1.Enabled)
             {
                 timer1.Stop();

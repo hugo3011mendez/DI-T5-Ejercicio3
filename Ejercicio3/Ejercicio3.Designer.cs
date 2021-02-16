@@ -33,6 +33,8 @@
             this.reproductor = new NuevoComponente.Reproductor();
             this.btnEscogerArchivo = new System.Windows.Forms.Button();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.pictureBox = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
@@ -59,15 +61,26 @@
             this.btnEscogerArchivo.UseVisualStyleBackColor = true;
             this.btnEscogerArchivo.Click += new System.EventHandler(this.btnEscogerArchivo_Click);
             // 
+            // pictureBox
+            // 
+            this.pictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox.Location = new System.Drawing.Point(223, 83);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(239, 136);
+            this.pictureBox.TabIndex = 2;
+            this.pictureBox.TabStop = false;
+            // 
             // Ejercicio3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(495, 249);
+            this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.btnEscogerArchivo);
             this.Controls.Add(this.reproductor);
             this.Name = "Ejercicio3";
             this.Text = "Ejercicio3";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -77,5 +90,6 @@
         private NuevoComponente.Reproductor reproductor;
         private System.Windows.Forms.Button btnEscogerArchivo;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
+        private System.Windows.Forms.PictureBox pictureBox;
     }
 }
