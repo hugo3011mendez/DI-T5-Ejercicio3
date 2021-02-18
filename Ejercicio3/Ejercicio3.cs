@@ -20,13 +20,13 @@ namespace Ejercicio3
         public Ejercicio3()
         {
             InitializeComponent();
-
         }
 
 
+        // Evento tick del timer
         private void timer1_Tick(object sender, EventArgs e)
         {
-            reproductor.Segundos = reproductor.Segundos +1;
+            reproductor.Segundos = reproductor.Segundos +1; // Incremento los segundos
 
             try
             {
@@ -55,35 +55,6 @@ namespace Ejercicio3
         // Evento que se lanza cuando se pulsa el botón de reproducir en el reproductor
         private void reproductor_PulsaBoton(object sender, EventArgs e)
         {
-            try
-            {
-                imagenesSeleccionadas.Clear(); // Limpio la colección de imágenes cuando se pulsa el botón play/pausa
-                DirectoryInfo di = new DirectoryInfo(folderBrowserDialog.SelectedPath); // Creo una variable que guarda la info de la carpeta seleccionada en el folderBrowserDialog
-                // Recorro los archivos de la carpeta
-                for (int i = 0; i < di.GetFiles().Length; i++)
-                {
-                    // Si el archivo tiene una extensión de imagen, se guarda en la colección de imágenes contenidas en la carpeta seleccionada
-                    if (di.GetFiles()[i].Name.EndsWith(".png") || di.GetFiles()[i].Name.EndsWith(".jpg") || di.GetFiles()[i].Name.EndsWith(".jpeg"))
-                    {
-                        try
-                        {
-                            imagenesSeleccionadas.Add(new Bitmap(Image.FromFile(di.GetFiles()[i].FullName)));
-                        }
-                        catch (OutOfMemoryException)
-                        {
-                            Console.WriteLine("Se ha encontrado una imagen corrupta en la carpeta");
-                        }
-                    }
-                }            
-            }
-            catch (ArgumentException)
-            {
-                if (reproductor.EstaEnPlay)
-                {
-                    MessageBox.Show("Debes especificar una carpeta que tenga imágenes", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-
             // Compruebo si el timer está en marcha o en pausa, para pararlo o iniciarlo según corresponda
             if (timer1.Enabled)
             {
@@ -96,14 +67,49 @@ namespace Ejercicio3
         }
 
 
+        // Evento que se lanza cuando se clicka en el botón de escoger carpeta
         private void btnEscogerArchivo_Click(object sender, EventArgs e)
         {
+
+            pictureBox.BackgroundImage = null; // Limpio el pictureBox cuando clicko este botón
+
             if (!reproductor.EstaEnPlay) // Si el contador está corriendo, lo paro
             {
                 reproductor.btnPlayPausa_Click(sender, EventArgs.Empty);
             }
 
-            this.folderBrowserDialog.ShowDialog();
+            this.folderBrowserDialog.ShowDialog(); // Enseño el folderBrowserDialog para escoger una carpeta
+
+
+            try
+            {
+                imagenesSeleccionadas.Clear(); // Limpio la colección de imágenes cuando se pulsa el botón play/pausa
+                DirectoryInfo di = new DirectoryInfo(folderBrowserDialog.SelectedPath); // Creo una variable que guarda la info de la carpeta seleccionada en el folderBrowserDialog
+                // Recorro los archivos de la carpeta
+                for (int i = 0; i < di.GetFiles().Length; i++)
+                {
+                    // Si el archivo tiene una extensión de imagen, se guarda en la colección de imágenes contenidas en la carpeta seleccionada
+                    if (di.GetFiles()[i].Name.EndsWith(".png") || di.GetFiles()[i].Name.EndsWith(".jpg") || di.GetFiles()[i].Name.EndsWith(".jpeg"))
+                    {
+                        // Controlo la excepción producida cuando una imagen que se encuentra en la carpeta seleccionada está corrupta
+                        try
+                        {
+                            imagenesSeleccionadas.Add(new Bitmap(Image.FromFile(di.GetFiles()[i].FullName)));
+                        }
+                        catch (OutOfMemoryException)
+                        {
+                            Console.WriteLine("Se ha encontrado una imagen corrupta en la carpeta");
+                        }
+                    }
+                }
+            }
+            catch (ArgumentException)
+            {
+                if (reproductor.EstaEnPlay)
+                {
+                    MessageBox.Show("Debes especificar una carpeta que tenga imágenes", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }
