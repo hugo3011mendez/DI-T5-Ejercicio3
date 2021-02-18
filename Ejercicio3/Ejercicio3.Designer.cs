@@ -49,6 +49,7 @@
             this.reproductor.Name = "reproductor";
             this.reproductor.Size = new System.Drawing.Size(181, 170);
             this.reproductor.TabIndex = 0;
+            this.reproductor.PulsaBoton += new System.EventHandler(this.reproductor_PulsaBoton);
             // 
             // btnEscogerArchivo
             // 
