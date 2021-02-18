@@ -26,55 +26,63 @@ namespace Ejercicio3
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            reproductor.segundos ++;
+            reproductor.Segundos = reproductor.Segundos +1;
 
-            if (reproductor.segundos > 59)
+            try
             {
-                reproductor_DesbordaTiempo(sender, EventArgs.Empty);
+                // Cada vez que el timer hace el evento Tick (cada segundo), se cambia la imagen que se visualiza por la siguiente de la carpeta
+                pictureBox.BackgroundImage = imagenesSeleccionadas[contadorVisualizacionImagenes];
+                contadorVisualizacionImagenes++;
+
+
+                // Si se está mostrando la última imagen en la carpeta, el contador de visualización vuelve a 0 para volver a mostrar la primera imagen
+                if (contadorVisualizacionImagenes > imagenesSeleccionadas.Count - 1)
+                {
+                    contadorVisualizacionImagenes = 0;
+                }
             }
-
-            reproductor.lblTiempo.Text = reproductor.minutos.ToString("D2") + ":" + reproductor.segundos.ToString("D2");
-
-            // Cada vez que el timer hace el evento Tick (cada segundo), se cambia la imagen que se visualiza por la siguiente de la carpeta
-            pictureBox.BackgroundImage = imagenesSeleccionadas[contadorVisualizacionImagenes];
-            contadorVisualizacionImagenes++;
-
-            // Si se está mostrando la última imagen en la carpeta, el contador de visualización vuelve a 0 para volver a mostrar la primera imagen
-            if (contadorVisualizacionImagenes > imagenesSeleccionadas.Count - 1)
-            {
-                contadorVisualizacionImagenes = 0;
-            }
+            catch (ArgumentException){}
         }
 
 
         // En el evento DesbordaTiempo actualizo los minutos y los segundos cuando éstos llegan a más de 60;
         private void reproductor_DesbordaTiempo(object sender, EventArgs e)
         {
-            reproductor.segundos = 0;
-
-            reproductor.minutos++;
-
-            if (reproductor.minutos > 99)
-            {
-                reproductor.minutos = 0;
-            }
+            reproductor.Minutos = reproductor.Minutos +1;
         }
 
 
         // Evento que se lanza cuando se pulsa el botón de reproducir en el reproductor
         private void reproductor_PulsaBoton(object sender, EventArgs e)
         {
-            DirectoryInfo di = new DirectoryInfo(folderBrowserDialog.SelectedPath); // Creo una variable que guarda la info de la carpeta seleccionada en el folderBrowserDialog
-
-            // Recorro los archivos de la carpeta
-            for (int i = 0; i < di.GetFiles().Length; i++)
+            try
             {
-                // Si el archivo tiene una extensión de imagen, se guarda en la colección de imágenes contenidas en la carpeta seleccionada
-                if (di.GetFiles()[i].Name.EndsWith(".png") || di.GetFiles()[i].Name.EndsWith(".jpg"))
+                imagenesSeleccionadas.Clear(); // Limpio la colección de imágenes cuando se pulsa el botón play/pausa
+                DirectoryInfo di = new DirectoryInfo(folderBrowserDialog.SelectedPath); // Creo una variable que guarda la info de la carpeta seleccionada en el folderBrowserDialog
+                // Recorro los archivos de la carpeta
+                for (int i = 0; i < di.GetFiles().Length; i++)
                 {
-                    imagenesSeleccionadas.Add(new Bitmap(Image.FromFile(di.GetFiles()[i].FullName)));
+                    // Si el archivo tiene una extensión de imagen, se guarda en la colección de imágenes contenidas en la carpeta seleccionada
+                    if (di.GetFiles()[i].Name.EndsWith(".png") || di.GetFiles()[i].Name.EndsWith(".jpg") || di.GetFiles()[i].Name.EndsWith(".jpeg"))
+                    {
+                        try
+                        {
+                            imagenesSeleccionadas.Add(new Bitmap(Image.FromFile(di.GetFiles()[i].FullName)));
+                        }
+                        catch (OutOfMemoryException)
+                        {
+                            Console.WriteLine("Se ha encontrado una imagen corrupta en la carpeta");
+                        }
+                    }
+                }            
+            }
+            catch (ArgumentException)
+            {
+                if (reproductor.EstaEnPlay)
+                {
+                    MessageBox.Show("Debes especificar una carpeta que tenga imágenes", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }            
+            }
 
             // Compruebo si el timer está en marcha o en pausa, para pararlo o iniciarlo según corresponda
             if (timer1.Enabled)
@@ -87,8 +95,14 @@ namespace Ejercicio3
             }
         }
 
+
         private void btnEscogerArchivo_Click(object sender, EventArgs e)
         {
+            if (!reproductor.EstaEnPlay) // Si el contador está corriendo, lo paro
+            {
+                reproductor.btnPlayPausa_Click(sender, EventArgs.Empty);
+            }
+
             this.folderBrowserDialog.ShowDialog();
         }
     }

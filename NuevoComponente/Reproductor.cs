@@ -13,8 +13,72 @@ namespace NuevoComponente
 {
     public partial class Reproductor : UserControl
     {
-        public int minutos = 0, segundos = 0;
-        bool estaEnPlay = true;
+        private int minutos;
+        private int segundos;
+
+        [Category("Tiempo")]
+        [Description("Indica el tiempo transcurrido referente a los segundos")]
+        public int Segundos
+        {
+            set
+            {
+                segundos = value;
+
+                if (segundos > 59)
+                {
+                    segundos = segundos % 60;
+                    DesbordaTiempo?.Invoke(this, EventArgs.Empty);
+                }
+
+                lblTiempo.Text = Minutos.ToString("D2") + ":" + Segundos.ToString("D2");
+            }
+
+            get
+            {
+                return segundos;
+            }
+        }
+
+
+
+        [Category("Tiempo")]
+        [Description("Indica el tiempo transcurrido referente a los minutos")]
+        public int Minutos
+        {
+            set
+            {
+                minutos = value;
+
+                if (minutos > 99)
+                {
+                    minutos = 0;
+                }
+
+                lblTiempo.Text = Minutos.ToString("D2") + ":" + Segundos.ToString("D2");
+            }
+
+            get
+            {
+                return minutos;
+            }
+        }
+
+
+
+        private bool estaEnPlay = true;
+        public bool EstaEnPlay
+        {
+            set
+            {
+                estaEnPlay = value;
+            }
+
+            get
+            {
+                return estaEnPlay;
+            }
+        }
+
 
         public Reproductor()
         {
@@ -29,21 +93,17 @@ namespace NuevoComponente
         public event EventHandler DesbordaTiempo;
 
 
-        [Category("Gestión")]
+        [Category("Reproducción")]
         [Description("Se lanza cuando se pulsa el botón de play/pausa")]
         public event EventHandler PulsaBoton;
 
-        private void btnPlayPausa_Click(object sender, EventArgs e)
+
+        public void btnPlayPausa_Click(object sender, EventArgs e)
         {
-            if (PulsaBoton != null)
-            {
-                Console.WriteLine("Lanzo el evento");
-                PulsaBoton(this, EventArgs.Empty);
-            }
 
-            //PulsaBoton?.Invoke(this, EventArgs.Empty);
+            PulsaBoton?.Invoke(this, EventArgs.Empty);
 
-            if (estaEnPlay)
+            if (EstaEnPlay)
             {
                 btnPlayPausa.BackgroundImage = Properties.Resources.Pause;
             }
@@ -52,7 +112,7 @@ namespace NuevoComponente
                 btnPlayPausa.BackgroundImage = Properties.Resources.Play;
             }
 
-            estaEnPlay = !estaEnPlay;
+            EstaEnPlay = !EstaEnPlay;
         }
     }
 }
